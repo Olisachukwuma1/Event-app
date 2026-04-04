@@ -5,16 +5,21 @@ require('dotenv').config()
 require("./conn/conn")
 const app = express()
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://event-app-five-chi.vercel.app"
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://event-o3ri867m6-olisachukwuma1s-projects.vercel.app',
-    'https://event-app-five-chi.vercel.app/'
-
-  ],
-  credentials: true,
-}))
-
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
