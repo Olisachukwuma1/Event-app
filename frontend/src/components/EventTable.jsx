@@ -33,7 +33,7 @@ function EventTable({ events, onDelete }) {
                 <td className="px-4 py-3">
                   {event.photo ? (
                     <a
-                      href={'http://localhost:5000/' + event.photo}
+                  href={`${import.meta.env.VITE_API_URL}/${event.photo}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-gray-500 hover:text-blue-600"

@@ -3,7 +3,7 @@ function EventCard({ event }) {
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
       {event.photo ? (
         <img
-          src={'http://localhost:5000/' + event.photo}
+       src={`${import.meta.env.VITE_API_URL}/${event.photo}`}
           alt={event.title}
           className="w-full h-36 object-cover rounded-t-2xl"
         />

@@ -14,7 +14,7 @@ function Administrators() {
   const fetchAdmins = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:5000/api/auth/admins', {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/admins`, {
         headers: { Authorization: 'Bearer ' + token },
       })
       setAdmins(res.data)
@@ -34,8 +34,7 @@ function Administrators() {
     setMessage('')
     try {
       const token = localStorage.getItem('token')
-      await axios.post(
-        'http://localhost:5000/api/auth/register',
+await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`,
         { name, email, password },
         { headers: { Authorization: 'Bearer ' + token } }
       )
@@ -54,7 +53,7 @@ const handleDelete = async (id) => {
   if (!window.confirm('Are you sure you want to delete this admin?')) return
   try {
     const token = localStorage.getItem('token')
-    await axios.delete('http://localhost:5000/api/auth/admins/' + id, {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/admins/${id}`, {
       headers: { Authorization: 'Bearer ' + token },
     })
     setMessage('Admin deleted successfully')

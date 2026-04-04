@@ -22,7 +22,7 @@ function AddEvent() {
       const fetchEvent = async () => {
         try {
           const token = localStorage.getItem('token')
-          const res = await axios.get('http://localhost:5000/api/events/' + editId, {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/events/` + editId, {
             headers: { Authorization: 'Bearer ' + token },
           })
           const e = res.data
@@ -61,12 +61,12 @@ function AddEvent() {
       if (photo) formData.append('photo', photo)
 
       if (editId) {
-        await axios.put('http://localhost:5000/api/events/' + editId, formData, {
+     await axios.put(`${import.meta.env.VITE_API_URL}/api/events/` + editId, formData, {
           headers: { Authorization: 'Bearer ' + token },
         })
         setMessage('Event updated successfully')
       } else {
-        await axios.post('http://localhost:5000/api/events', formData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/events`, formData, {
           headers: { Authorization: 'Bearer ' + token },
         })
         setMessage('Event has been added successfully')

@@ -13,8 +13,7 @@ function AuthCode() {
     setError('')
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.post(
-        'http://localhost:5000/api/auth/verify-code',
+const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/verify-code`,
         { code },
         { headers: { Authorization: 'Bearer ' + token } }
       )
@@ -32,8 +31,7 @@ function AuthCode() {
     setMessage('')
     try {
       const token = localStorage.getItem('token')
-      await axios.post(
-        'http://localhost:5000/api/auth/resend-code',
+   await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/resend-code`,
         {},
         { headers: { Authorization: 'Bearer ' + token } }
       )

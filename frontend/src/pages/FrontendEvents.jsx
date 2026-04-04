@@ -43,7 +43,7 @@ function FrontendEvents() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/events/public')
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/events/public`)
         setEvents(res.data)
       } catch (err) {
         console.error('Failed to fetch events',err)

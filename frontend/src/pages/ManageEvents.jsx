@@ -15,7 +15,7 @@ function ManageEvents() {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.get('http://localhost:5000/api/events', {
+     const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/events`, {
         headers: { Authorization: 'Bearer ' + token },
       })
       setEvents(res.data)
@@ -33,12 +33,12 @@ function ManageEvents() {
     if (!window.confirm('Are you sure you want to delete this event?')) return
     try {
       const token = localStorage.getItem('token')
-      await axios.delete('http://localhost:5000/api/events/' + id, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/events/${id}`, {
         headers: { Authorization: 'Bearer ' + token },
       })
       setMessage('Event deleted successfully')
 
-        const res = await axios.get('http://localhost:5000/api/events', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/events`, {
       headers: { Authorization: 'Bearer ' + token },
     })
     setEvents(res.data)

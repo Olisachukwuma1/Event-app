@@ -6,10 +6,12 @@ require("./conn/conn")
 const app = express()
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://event-o3ri867m6-olisachukwuma1s-projects.vercel.app'
+  ],
   credentials: true,
 }))
-
 
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
