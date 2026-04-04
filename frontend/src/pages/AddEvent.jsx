@@ -1,0 +1,205 @@
+import { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import axios from 'axios'
+import Sidebar from '../components/Sidebar'
+
+function AddEvent() {
+  const [title, setTitle] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [venue, setVenue] = useState('')
+  const [photo, setPhoto] = useState(null)
+  const [preview, setPreview] = useState(null)
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const editId = searchParams.get('id')
+
+  useEffect(() => {
+    if (editId) {
+      const fetchEvent = async () => {
+        try {
+          const token = localStorage.getItem('token')
+          const res = await axios.get('http://localhost:5000/api/events/' + editId, {
+            headers: { Authorization: 'Bearer ' + token },
+          })
+          const e = res.data
+          setTitle(e.title)
+          setDate(e.date)
+          setTime(e.time)
+          setVenue(e.venue)
+          if (e.photo) setPreview('http://localhost:5000/' + e.photo)
+        } catch (_err) {
+      console.error(_err)
+          setError('Failed to load event')
+        }
+      }
+      fetchEvent()
+    }
+  }, [editId])
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0]
+    setPhoto(file)
+    setPreview(URL.createObjectURL(file))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    setMessage('')
+
+    try {
+      const token = localStorage.getItem('token')
+      const formData = new FormData()
+      formData.append('title', title)
+      formData.append('date', date)
+      formData.append('time', time)
+      formData.append('venue', venue)
+      if (photo) formData.append('photo', photo)
+
+      if (editId) {
+        await axios.put('http://localhost:5000/api/events/' + editId, formData, {
+          headers: { Authorization: 'Bearer ' + token },
+        })
+        setMessage('Event updated successfully')
+      } else {
+        await axios.post('http://localhost:5000/api/events', formData, {
+          headers: { Authorization: 'Bearer ' + token },
+        })
+        setMessage('Event has been added successfully')
+      }
+
+      setTimeout(() => navigate('/events/manage_events'), 1500)
+    } catch (_err) {
+      console.error(_err)
+      setError('Failed to save event. Please try again.')
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex-1 bg-gray-100 p-6">
+
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-xl font-semibold">Manage Event</h1>
+          {message && <p className="text-green-600 text-sm">{message}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+        </div>
+
+        <div className="flex gap-6">
+
+          {/* Left — back to table hint */}
+          <div className="flex-1">
+            <p className="text-sm text-gray-400 mt-4">
+              Fill in the form to {editId ? 'update the' : 'add a new'} event.
+            </p>
+            <button
+              onClick={() => navigate('/events/manage_events')}
+              className="mt-4 text-sm text-blue-600 hover:underline"
+            >
+              Back to Manage Events
+            </button>
+          </div>
+
+          {/* Right — form panel */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 w-80 flex-shrink-0">
+            <h2 className="text-base font-semibold text-center mb-4">
+              {editId ? 'Edit Event' : 'Add Event'}
+            </h2>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Event Name</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Date</label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Time</label>
+                <input
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Venue</label>
+                <input
+                  type="text"
+                  value={venue}
+                  onChange={(e) => setVenue(e.target.value)}
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* Photo preview */}
+              <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="preview"
+                    className="h-full w-full object-cover rounded-lg"
+                  />
+                ) : (
+                  <span className="text-xs text-gray-400">
+                    The photo will display here when added
+                  </span>
+                )}
+              </div>
+
+              {/* Hidden file input triggered by button */}
+              <input
+                type="file"
+                accept="image/*"
+                id="photoInput"
+                onChange={handlePhotoChange}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => document.getElementById('photoInput').click()}
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-lg transition"
+              >
+                Add Event Photo
+              </button>
+
+              <button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg transition"
+              >
+                {editId ? 'Update Event' : 'Add Event'}
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default AddEvent
