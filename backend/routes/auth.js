@@ -2,18 +2,11 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
+const { Resend } = require('resend')
 const User = require('../models/User')
 const auth = require('../middleware/auth')
 
-// Setup email transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-})
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Generate 6 digit code
 const generateCode = () => {
@@ -45,7 +38,6 @@ router.post('/', async (req, res) => {
       })
       await user.save()
     } else {
-      // Normal login — user must exist and password must match
       if (!user) {
         console.log('User not found')
         return res.status(400).json({ message: 'Invalid credentials' })
@@ -68,14 +60,19 @@ router.post('/', async (req, res) => {
 
     console.log('Auth code:', code)
 
-    // NON-BLOCKING email send
-    transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Your Authentication Code',
-      html: `<h2>Your code is: <strong>${code}</strong></h2>
-             <p>Expires in 10 minutes</p>`,
-    })
+    // Send email via Resend
+    try {
+      await resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: user.email,
+        subject: 'Your Authentication Code',
+        html: `<h2>Your code is: <strong>${code}</strong></h2>
+               <p>Expires in 10 minutes</p>`,
+      })
+      console.log('Email sent successfully')
+    } catch (emailErr) {
+      console.log('Email failed (code still works):', emailErr.message)
+    }
 
     // TEMP TOKEN (NOT FULL ACCESS YET)
     const token = jwt.sign(
@@ -164,12 +161,18 @@ router.post('/resend-code', async (req, res) => {
 
     console.log('Resent auth code:', code)
 
-    transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Your New Authentication Code',
-      html: `<h2>Your new code is: <strong>${code}</strong></h2>`,
-    })
+    // Send email via Resend
+    try {
+      await resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: user.email,
+        subject: 'Your New Authentication Code',
+        html: `<h2>Your new code is: <strong>${code}</strong></h2>`,
+      })
+      console.log('Resend email sent successfully')
+    } catch (emailErr) {
+      console.log('Email failed (code still works):', emailErr.message)
+    }
 
     res.json({ message: 'Code resent successfully' })
 
