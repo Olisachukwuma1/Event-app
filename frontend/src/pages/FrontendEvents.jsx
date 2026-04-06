@@ -3,42 +3,7 @@ import axios from 'axios'
 import EventCard from '../components/EventCard'
 
 function FrontendEvents() {
-  const [events, setEvents] = useState([
-
-
-     {
-        _id: '1',
-        title: 'Kaduna Buy and Sell Fair',
-        date: '25-04-2026',
-        time: '10:00 AM',
-        venue: 'Murtala Square',
-        photo:'/tradefair.jpg',
-      },
-      {
-        _id: '2',
-        title: 'Techie Conference 2026',
-        date: '23-04-2026',
-        time: '14:00 PM',
-        venue: 'Cafe-One',
-        photo: '/Tech Conference.jpg',
-      },
-      {
-        _id: '3',
-        title: 'Wonderland Enchanted Carnival',
-        date: '30-04-2026',
-        time: '11:00 AM',
-        venue: 'Murtala Square',
-        photo:'/carnival.jpg' ,
-      },
-      {
-        _id: '4',
-        title: 'Vibez Corner',
-        date: '05-05-2026',
-        time: '21:00 PM',
-        venue: 'Dera-classic, Narayi high-cost',
-        photo: '/rave.jpg',
-      },
-  ])
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
     const fetchEvents = async () => {

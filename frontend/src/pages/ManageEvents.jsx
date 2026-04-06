@@ -5,6 +5,7 @@ import EventTable from '../components/EventTable'
 import Sidebar from '../components/Sidebar'
 import getUser from '../utils/getUser'
 
+
 function ManageEvents() {
   const user = getUser()
   const [events, setEvents] = useState([])

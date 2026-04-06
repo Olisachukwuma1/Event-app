@@ -44,6 +44,16 @@ function Sidebar() {
         >
           Administrators
         </NavLink>
+        <NavLink
+  to="/events/frontend"
+  className={({ isActive }) =>
+    `px-4 py-3 text-sm transition hover:bg-gray-800 ${
+      isActive ? 'bg-gray-800 text-white' : 'text-gray-400'
+    }`
+  }
+>
+  Public Events
+</NavLink>
         <button
           onClick={handleSignOut}
           className="px-4 py-3 text-sm text-left text-gray-400 hover:bg-gray-800 hover:text-white transition"

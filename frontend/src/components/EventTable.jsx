@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function EventTable({ events, onDelete }) {
   const navigate = useNavigate()
@@ -55,7 +56,7 @@ function EventTable({ events, onDelete }) {
                     onClick={() => onDelete(event._id)}
                     className="text-red-500 hover:underline"
                   >
-                    Delete
+                <RiDeleteBin6Line />
                   </button>
                 </td>
               </tr>
