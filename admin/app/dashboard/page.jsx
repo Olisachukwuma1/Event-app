@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Sidebar from '../../components/Sidebar'
 import { jwtDecode } from 'jwt-decode'
-import ProtectedRoute from '../../../components/ProtectedRoute'
+import ProtectedRoute from '../../components/ProtectedRoute'
 
 export default function Dashboard() {
   const [events, setEvents] = useState([])
