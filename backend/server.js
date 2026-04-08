@@ -2,35 +2,34 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 require('dotenv').config()
-require("./conn/conn")
-const app = express()
+require('./conn/conn')
 
-const allowedOrigins = [
-  "http://localhost:5173",
-    "http://localhost:5174",
-  "https://event-app-five-chi.vercel.app"
-];
+const app = express()
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+    if (
+      !origin ||
+      origin.endsWith('.vercel.app') ||
+      origin === 'http://localhost:3000' ||
+      origin === 'http://localhost:3001' 
+    ) {
+      callback(null, true)
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error('Not allowed by CORS'))
     }
   },
-  credentials: true
-}));
+  credentials: true,
+}))
+
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // Routes
-
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/events', require('./routes/events'))
 
-
-//server
-app.listen (process.env.PORT, () => {
-    console.log(`Server Started at ${process.env.PORT}`);
-});
+// Server
+app.listen(process.env.PORT, () => {
+  console.log(`Server Started at ${process.env.PORT}`)
+})
