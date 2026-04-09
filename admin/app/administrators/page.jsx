@@ -73,7 +73,7 @@ export default function Administrators() {
       <Sidebar />
       <div className="flex-1 bg-gray-100 p-6">
 
-        <h1 className="text-xl font-semibold mb-6">Administrators</h1>
+        <h1 className="text-xl text-gray-800 font-semibold mb-6">Administrators</h1>
 
         <div className="flex gap-6">
 
@@ -84,7 +84,7 @@ export default function Administrators() {
               <table className="w-full text-sm bg-white">
                 <thead>
                   <tr className="bg-blue-600 text-white">
-                    <th className="text-left px-4 py-3">Name</th>
+                    <th className="text-left  px-4 py-3">Name</th>
                     <th className="text-left px-4 py-3">Email</th>
                     <th className="text-left px-4 py-3">Created</th>
                     <th className="text-left px-4 py-3">Action</th>
@@ -100,9 +100,9 @@ export default function Administrators() {
                   ) : (
                     admins.map((admin) => (
                       <tr key={admin._id} className="border-t border-gray-100">
-                        <td className="px-4 py-3">{admin.name}</td>
-                        <td className="px-4 py-3">{admin.email}</td>
-                        <td className="px-4 py-3">
+                        <td className="px-4 text-gray-800 py-3">{admin.name}</td>
+                        <td className="px-4 text-gray-800 py-3">{admin.email}</td>
+                        <td className="px-4 text-gray-800 py-3">
                           {new Date(admin.createdAt).toLocaleDateString()}
                         </td>
                         <td className="px-4 py-3">
@@ -122,7 +122,7 @@ export default function Administrators() {
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-200 p-6 w-72 flex-shrink-0">
-            <h2 className="text-base font-semibold text-center mb-4">
+            <h2 className="text-base font-semibold  text-gray-800 text-center mb-4">
               Create Admin
             </h2>
 
@@ -134,7 +134,7 @@ export default function Administrators() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border text-gray-800 border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
               <div>

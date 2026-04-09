@@ -61,7 +61,7 @@ export default function ManageEvents() {
       <div className="flex-1 bg-gray-100 p-6">
 
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold">Manage Event</h1>
+          <h1 className="text-xl text-gray-800 font-semibold">Manage Event</h1>
           <span className="text-sm text-blue-600">
             Welcome, {user?.name || 'Admin'}
           </span>
@@ -72,7 +72,7 @@ export default function ManageEvents() {
         )}
 
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-800 text-gray-500">
             Total Records: {events.length}
           </span>
           <button

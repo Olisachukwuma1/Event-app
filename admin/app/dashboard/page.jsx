@@ -55,7 +55,7 @@ export default function Dashboard() {
 
         <div className="flex-1 bg-gray-100 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-xl font-semibold">Dashboard</h1>
+            <h1 className="text-xl text-gray-800 font-semibold">Dashboard</h1>
             <span className="text-sm text-blue-600">
               Welcome, {user?.name || 'Admin'}
             </span>

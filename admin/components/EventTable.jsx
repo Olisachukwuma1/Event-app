@@ -11,29 +11,29 @@ export default function EventTable({ events, onDelete }) {
       <table className="w-full text-sm bg-white">
         <thead>
           <tr className="bg-blue-600 text-white">
-            <th className="text-left px-4 py-3">Event Title</th>
+            <th className="text-left  px-4 py-3">Event Title</th>
             <th className="text-left px-4 py-3">Date</th>
-            <th className="text-left px-4 py-3">Time</th>
-            <th className="text-left px-4 py-3">Venue</th>
-            <th className="text-left px-4 py-3">Event Photo</th>
-            <th className="text-left px-4 py-3">Action</th>
+            <th className="text-left  px-4 py-3">Time</th>
+            <th className="text-left  px-4 py-3">Venue</th>
+            <th className="text-left  px-4 py-3">Event Photo</th>
+            <th className="text-left  px-4 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {events.length === 0 ? (
             <tr>
-              <td colSpan="6" className="text-center py-6 text-gray-400">
+              <td colSpan="6" className="text-center py-6 text-black-400">
                 No events found
               </td>
             </tr>
           ) : (
             events.map((event) => (
               <tr key={event._id} className="border-t border-gray-100">
-                <td className="px-4 py-3">{event.title}</td>
-                <td className="px-4 py-3">{event.date}</td>
-                <td className="px-4 py-3">{event.time}</td>
-                <td className="px-4 py-3">{event.venue}</td>
-                <td className="px-4 py-3">
+                <td className="px-4 text-gray-800 py-3">{event.title}</td>
+                <td className="px-4text-gray-800 py-3">{event.date}</td>
+                <td className="px-4 text-gray-800 py-3">{event.time}</td>
+                <td className="px-4 text-gray-800 py-3">{event.venue}</td>
+                <td className="px-4 text-gray-800 py-3">
                   {event.photo ? (
                     <button
                       onClick={() => window.open(event.photo, '_blank')}

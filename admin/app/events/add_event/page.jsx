@@ -93,7 +93,7 @@ function AddEventForm() {
       <div className="flex-1 bg-gray-100 p-6">
 
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-xl text-gray-800 font-semibold">
             {editId ? 'Edit Event' : 'Add Event'}
           </h1>
           {message && <p className="text-green-600 text-sm">{message}</p>}
@@ -114,7 +114,7 @@ function AddEventForm() {
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-200 p-6 w-80 flex-shrink-0">
-            <h2 className="text-base font-semibold text-center mb-4">
+            <h2 className="text-base text-gray-800 font-semibold text-center mb-4">
               {editId ? 'Edit Event' : 'Add Event'}
             </h2>
 
@@ -126,7 +126,7 @@ function AddEventForm() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -136,7 +136,7 @@ function AddEventForm() {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -146,7 +146,7 @@ function AddEventForm() {
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
                   required
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -156,7 +156,7 @@ function AddEventForm() {
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
                   required
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-300 text-gray-800rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
 
