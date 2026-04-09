@@ -9,98 +9,127 @@ import ProtectedRoute from '../../components/ProtectedRoute'
 export default function Dashboard() {
   const [events, setEvents] = useState([])
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      const decoded = jwtDecode(token)
-      setUser(decoded)
-    }
-
-    const fetchEvents = async () => {
+    const init = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events`, {
-          headers: { Authorization: 'Bearer ' + token },
-        })
-        setEvents(res.data)
+        const token = localStorage.getItem('token')
+
+        if (token) {
+          const decoded = jwtDecode(token)
+          setUser(decoded)
+
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
+            {
+              headers: { Authorization: 'Bearer ' + token },
+            }
+          )
+
+          setEvents(res.data)
+        }
       } catch (err) {
-        console.error('Failed to fetch events', err)
+        console.error('Error:', err)
+      } finally {
+        setLoading(false)
       }
     }
-    fetchEvents()
+
+    init()
   }, [])
+
+  // ✅ Prevent hydration mismatch
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading dashboard...</p>
+      </div>
+    )
+  }
 
   return (
     <ProtectedRoute>
-            <div className="flex min-h-screen">
-      <Sidebar />
-      <div className="flex-1 bg-gray-100 p-6">
+      <div className="flex min-h-screen">
+        <Sidebar />
 
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Dashboard</h1>
-          <span className="text-sm text-blue-600">
-            Welcome, {user?.name || 'Admin'}
-          </span>
-        </div>
+        <div className="flex-1 bg-gray-100 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-xl font-semibold">Dashboard</h1>
+            <span className="text-sm text-blue-600">
+              Welcome, {user?.name || 'Admin'}
+            </span>
+          </div>
 
-        {/* Stats cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500 mb-1">Total Events</p>
-            <p className="text-3xl font-semibold text-blue-600">
-              {events.length}
-            </p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500 mb-1">Upcoming Events</p>
-            <p className="text-3xl font-semibold text-green-600">
-              {events.length}
-            </p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500 mb-1">Online Events</p>
-            <p className="text-3xl font-semibold text-purple-600">
-              {events.filter((e) => e.venue.toLowerCase() === 'online').length}
-            </p>
-          </div>
-        </div>
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="bg-white rounded-2xl border p-5">
+              <p className="text-sm text-gray-500 mb-1">Total Events</p>
+              <p className="text-3xl font-semibold text-blue-600">
+                {events.length}
+              </p>
+            </div>
 
-        {/* Recent events */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5">
-          <h2 className="text-base font-semibold mb-4">Recent Events</h2>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-blue-600 text-white">
-                <th className="text-left px-4 py-3 rounded-tl-lg">Event Title</th>
-                <th className="text-left px-4 py-3">Date</th>
-                <th className="text-left px-4 py-3">Time</th>
-                <th className="text-left px-4 py-3 rounded-tr-lg">Venue</th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.length === 0 ? (
-                <tr>
-                  <td colSpan="4" className="text-center py-6 text-gray-400">
-                    No events found
-                  </td>
+            <div className="bg-white rounded-2xl border p-5">
+              <p className="text-sm text-gray-500 mb-1">Upcoming Events</p>
+              <p className="text-3xl font-semibold text-green-600">
+                {events.length}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border p-5">
+              <p className="text-sm text-gray-500 mb-1">Online Events</p>
+              <p className="text-3xl font-semibold text-purple-600">
+                {
+                  events.filter(
+                    (e) => e.venue?.toLowerCase() === 'online'
+                  ).length
+                }
+              </p>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="bg-white rounded-2xl border p-5">
+            <h2 className="text-base font-semibold mb-4">
+              Recent Events
+            </h2>
+
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-blue-600 text-white">
+                  <th className="text-left px-4 py-3">Event Title</th>
+                  <th className="text-left px-4 py-3">Date</th>
+                  <th className="text-left px-4 py-3">Time</th>
+                  <th className="text-left px-4 py-3">Venue</th>
                 </tr>
-              ) : (
-                events.map((event) => (
-                  <tr key={event._id} className="border-t border-gray-100">
-                    <td className="px-4 py-3">{event.title}</td>
-                    <td className="px-4 py-3">{event.date}</td>
-                    <td className="px-4 py-3">{event.time}</td>
-                    <td className="px-4 py-3">{event.venue}</td>
+              </thead>
+
+              <tbody>
+                {events.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan="4"
+                      className="text-center py-6 text-gray-400"
+                    >
+                      No events found
+                    </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  events.map((event) => (
+                    <tr key={event._id} className="border-t">
+                      <td className="px-4 py-3">{event.title}</td>
+                      <td className="px-4 py-3">{event.date}</td>
+                      <td className="px-4 py-3">{event.time}</td>
+                      <td className="px-4 py-3">{event.venue}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-
       </div>
-    </div>
     </ProtectedRoute>
-
   )
 }

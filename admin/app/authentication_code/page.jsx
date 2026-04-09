@@ -68,7 +68,7 @@ export default function AuthCode() {
             onChange={(e) => setCode(e.target.value)}
             maxLength={6}
             required
-            className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-center tracking-widest focus:outline-none focus:border-blue-500"
+            className="border text-black border-gray-300 rounded-lg px-4 py-2 text-sm text-center tracking-widest focus:outline-none focus:border-blue-500"
           />
           <button
             type="submit"

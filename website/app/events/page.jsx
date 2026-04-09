@@ -33,7 +33,7 @@ export default function Events() {
         <h1 className="text-3xl font-semibold text-center text-blue-600 mb-2">
           Upcoming Events
         </h1>
-        <p className="text-center text-gray-500 text-sm mb-10">
+        <p className="text-center text-black text-sm mb-10">
           Browse all upcoming events
         </p>
 

@@ -12,16 +12,16 @@ export default function EventCard({ event }) {
 )}
       <div className="p-4">
         <h2 className="text-sm font-semibold mb-3">{event.title}</h2>
-        <p className="text-xs text-gray-500 mb-1">
-          <span className="font-medium text-gray-700">Date: </span>
+        <p className="text-xs text-black-500 mb-1">
+          <span className="font-medium text-black-700">Date: </span>
           {event.date}
         </p>
-        <p className="text-xs text-gray-500 mb-1">
-          <span className="font-medium text-gray-700">Time: </span>
+        <p className="text-xs text-black-500 mb-1">
+          <span className="font-medium text-black-700">Time: </span>
           {event.time}
         </p>
-        <p className="text-xs text-gray-500">
-          <span className="font-medium text-gray-700">Venue: </span>
+        <p className="text-xs text-black-500">
+          <span className="font-medium text-black-700">Venue: </span>
           {event.venue}
         </p>
       </div>
