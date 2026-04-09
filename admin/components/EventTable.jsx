@@ -30,7 +30,7 @@ export default function EventTable({ events, onDelete }) {
             events.map((event) => (
               <tr key={event._id} className="border-t border-gray-100">
                 <td className="px-4 text-gray-800 py-3">{event.title}</td>
-                <td className="px-4text-gray-800 py-3">{event.date}</td>
+                <td className="px-4 text-gray-800 py-3">{event.date}</td>
                 <td className="px-4 text-gray-800 py-3">{event.time}</td>
                 <td className="px-4 text-gray-800 py-3">{event.venue}</td>
                 <td className="px-4 text-gray-800 py-3">

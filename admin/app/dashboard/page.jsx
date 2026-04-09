@@ -64,21 +64,21 @@ export default function Dashboard() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <div className="bg-white rounded-2xl border p-5">
-              <p className="text-sm text-gray-500 mb-1">Total Events</p>
+              <p className="text-sm text-gray-800 mb-1">Total Events</p>
               <p className="text-3xl font-semibold text-blue-600">
                 {events.length}
               </p>
             </div>
 
             <div className="bg-white rounded-2xl border p-5">
-              <p className="text-sm text-gray-500 mb-1">Upcoming Events</p>
+              <p className="text-sm text-gray-800 mb-1">Upcoming Events</p>
               <p className="text-3xl font-semibold text-green-600">
                 {events.length}
               </p>
             </div>
 
             <div className="bg-white rounded-2xl border p-5">
-              <p className="text-sm text-gray-500 mb-1">Online Events</p>
+              <p className="text-sm text-gray-800 mb-1">Online Events</p>
               <p className="text-3xl font-semibold text-purple-600">
                 {
                   events.filter(
@@ -91,14 +91,14 @@ export default function Dashboard() {
 
           {/* Table */}
           <div className="bg-white rounded-2xl border p-5">
-            <h2 className="text-base font-semibold mb-4">
+            <h2 className="text-base text-gray-800 font-semibold mb-4">
               Recent Events
             </h2>
 
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-blue-600 text-white">
-                  <th className="text-left px-4 py-3">Event Title</th>
+                  <th className="text-left  px-4 py-3">Event Title</th>
                   <th className="text-left px-4 py-3">Date</th>
                   <th className="text-left px-4 py-3">Time</th>
                   <th className="text-left px-4 py-3">Venue</th>
@@ -118,10 +118,10 @@ export default function Dashboard() {
                 ) : (
                   events.map((event) => (
                     <tr key={event._id} className="border-t">
-                      <td className="px-4 py-3">{event.title}</td>
-                      <td className="px-4 py-3">{event.date}</td>
-                      <td className="px-4 py-3">{event.time}</td>
-                      <td className="px-4 py-3">{event.venue}</td>
+                      <td className="px-4 text-gray-800 py-3">{event.title}</td>
+                      <td className="px-4 text-gray-800 py-3">{event.date}</td>
+                      <td className="px-4 text-gray-800 py-3">{event.time}</td>
+                      <td className="px-4 text-gray-800 py-3">{event.venue}</td>
                     </tr>
                   ))
                 )}
