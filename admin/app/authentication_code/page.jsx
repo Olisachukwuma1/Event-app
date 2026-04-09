@@ -46,7 +46,7 @@ export default function AuthCode() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white rounded-2xl shadow p-10 w-full max-w-sm">
-        <h2 className="text-xl font-semibold text-center mb-2">
+        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">
           Authentication Code
         </h2>
         <p className="text-sm text-gray-500 text-center mb-6">
