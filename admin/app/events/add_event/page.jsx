@@ -75,7 +75,10 @@ function AddEventForm() {
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
           formData,
-          { headers: { Authorization: 'Bearer ' + token } }
+          { headers: { Authorization: 'Bearer ' + token,
+            
+          } }
+          
         )
         setMessage('Event has been added successfully')
       }
@@ -156,11 +159,11 @@ function AddEventForm() {
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
                   required
-                  className="w-full border border-gray-300 text-gray-800rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
 
-              <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden">
+              <div className="border border-dashed  text-gray-600 border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden">
                 {preview ? (
                   <img
                     src={preview}

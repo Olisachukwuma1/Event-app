@@ -44,6 +44,9 @@ router.get('/:id', auth, async (req, res) => {
 // @desc Create event (protected)
 router.post('/', auth, upload.single('photo'), async (req, res) => {
   try {
+    console.log("BODY:", req.body)
+console.log("FILE:", req.file)
+
     const { title, date, time, venue } = req.body
 
     const event = new Event({
@@ -51,7 +54,7 @@ router.post('/', auth, upload.single('photo'), async (req, res) => {
       date,
       time,
       venue,
-      photo: req.file ? req.file.path : null,
+    photo: req.file ? req.file.path : ''
     })
 
     await event.save()
