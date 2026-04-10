@@ -57,6 +57,7 @@ router.post('/', auth, upload.single('photo'), async (req, res) => {
     await event.save()
     res.status(201).json(event)
   } catch (_err) {
+        console.error('Event save error:', _err)
     res.status(500).json({ message: 'Server error' })
   }
 })

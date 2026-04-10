@@ -232,4 +232,29 @@ router.delete('/admins/:id', auth, async (req, res) => {
   }
 })
 
+// @route GET /api/auth/me
+// @desc Get current logged-in user
+// @access Private
+router.get('/me', auth, async (req, res) => {
+  try {
+    // req.user comes from your auth middleware
+    // make sure your middleware attaches decoded token like: req.user = decoded
+
+    // 🔐 Block unverified users (VERY IMPORTANT for your OTP system)
+    if (!req.user.verified) {
+      return res.status(403).json({ message: 'User not verified' })
+    }
+
+    const user = await User.findById(req.user.id).select('-password')
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    res.json(user)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Server error' })
+  }
+})
 module.exports = router

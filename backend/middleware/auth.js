@@ -11,6 +11,12 @@ const auth = (req, res, next) => {
     const token = authHeader.split(' ')[1]
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+    // 🔥 ADD THIS CHECK
+    if (!decoded.verified) {
+      return res.status(403).json({ message: 'User not verified' })
+    }
+
     req.user = decoded
 
     next()
