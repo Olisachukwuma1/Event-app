@@ -25,7 +25,7 @@ export default function ManageEvents() {
       try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
-          { headers: { Authorization: 'Bearer ' + token } }
+          { headers: { Authorization: `Bearer ${token}`} }
         )
         setEvents(res.data)
       } catch (_err) {

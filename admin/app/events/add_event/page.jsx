@@ -28,7 +28,7 @@ function AddEventForm() {
           const token = localStorage.getItem('token')
           const res = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/events/` + editId,
-            { headers: { Authorization: 'Bearer ' + token } }
+            { headers: {Authorization: `Bearer ${token}`} }
           )
           const e = res.data
           setTitle(e.title)
@@ -65,21 +65,29 @@ function AddEventForm() {
       if (photo) formData.append('photo', photo)
 
       if (editId) {
-        await axios.put(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/events/` + editId,
+     await axios.put(
+  `${process.env.NEXT_PUBLIC_API_URL}/api/events/` + editId,
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data"
+    }
+  }
+)
+  setMessage('Event updated successfully')
+      } 
+      else {
+      await axios.post(
+       `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
           formData,
-          { headers: { Authorization: 'Bearer ' + token } }
-        )
-        setMessage('Event updated successfully')
-      } else {
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
-          formData,
-          { headers: { Authorization: 'Bearer ' + token,
-            
-          } }
-          
-        )
+      {
+         headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data"
+    }
+  }
+)
         setMessage('Event has been added successfully')
       }
 
