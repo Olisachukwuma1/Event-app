@@ -1,21 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
-const path = require('path')
 const Event = require('../models/Event')
 const auth = require('../middleware/auth')
-
-// Setup multer for photo uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/')
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname))
-  },
-})
-
-const upload = multer({ storage })
+const { upload } = require('../config/cloudinary')
 
 // @route GET /api/events
 // @desc Get all events (protected)

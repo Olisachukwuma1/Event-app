@@ -3,7 +3,7 @@ export default function EventCard({ event }) {
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
      {event.photo ? (
   <img
-    src={`${process.env.NEXT_PUBLIC_API_URL}/${event.photo.replace(/\\/g, '/')}`}
+   src={event.photo}
     alt={event.title}
     className="w-full h-48 object-cover rounded-t-2xl"
   />
