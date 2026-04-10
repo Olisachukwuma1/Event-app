@@ -3,6 +3,11 @@ const cors = require('cors')
 const path = require('path')
 require('dotenv').config()
 require('./conn/conn')
+console.log('Cloudinary config:', {
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY ? 'set' : 'missing',
+  api_secret: process.env.CLOUDINARY_API_SECRET ? 'set' : 'missing',
+})
 
 const app = express()
 

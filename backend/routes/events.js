@@ -60,7 +60,9 @@ console.log("FILE:", req.file)
     await event.save()
     res.status(201).json(event)
   } catch (_err) {
-        console.error('Event save error:', _err)
+       console.error('Event error message:', _err.message)
+    console.error('Event error stack:', _err.stack)
+    
     res.status(500).json({ message: 'Server error' })
   }
 })
