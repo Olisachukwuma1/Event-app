@@ -170,35 +170,30 @@ function AddEventForm() {
                   className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
+<label
+  htmlFor="photoInput"
+  className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden cursor-pointer hover:bg-gray-50 transition"
+>
+  {preview ? (
+    <img
+      src={preview}
+      alt="preview"
+      className="h-full w-full object-cover rounded-lg"
+    />
+  ) : (
+    <span className="text-xs text-gray-400 text-center px-2">
+       Add event photo here 
+    </span>
+  )}
+</label>
 
-              <div className="border border-dashed  text-gray-600 border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden">
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="preview"
-                    className="h-full w-full object-cover rounded-lg"
-                  />
-                ) : (
-                  <span className="text-xs text-gray-400">
-                    The photo will display here when added
-                  </span>
-                )}
-              </div>
-
-              <input
-                type="file"
-                accept="image/*"
-                id="photoInput"
-                onChange={handlePhotoChange}
-                className="hidden"
-              />
-              <button
-                type="button"
-                onClick={() => document.getElementById('photoInput').click()}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-lg transition"
-              >
-                Add Event Photo
-              </button>
+<input
+  type="file"
+  accept="image/*"
+  id="photoInput"
+  onChange={handlePhotoChange}
+  className="hidden"
+/>
 
               <button
                 type="submit"

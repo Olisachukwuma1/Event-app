@@ -123,7 +123,7 @@ export default function Administrators() {
 
           <div className="bg-white rounded-2xl border border-gray-200 p-6 w-72 flex-shrink-0">
             <h2 className="text-base font-semibold  text-gray-800 text-center mb-4">
-              Create Admin
+              Add Admin
             </h2>
 
             <form onSubmit={handleCreate} className="flex flex-col gap-3">
