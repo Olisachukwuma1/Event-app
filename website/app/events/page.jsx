@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { io } from 'socket.io-client'
 import Navbar from '../../components/Navbar'
 import EventCard from '../../components/EventCard'
 
@@ -10,6 +11,7 @@ export default function Events() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Fetch existing events
     const fetchEvents = async () => {
       try {
         const res = await axios.get(
@@ -23,6 +25,24 @@ export default function Events() {
       }
     }
     fetchEvents()
+
+    // Connect to socket
+    const socket = io(process.env.NEXT_PUBLIC_API_URL)
+
+    socket.on('connect', () => {
+      console.log('Connected to socket:', socket.id)
+    })
+
+    // Listen for new events
+    socket.on('newEvent', (newEvent) => {
+      console.log('New event received:', newEvent.title)
+      setEvents((prev) => [newEvent, ...prev])
+    })
+
+    // Cleanup on unmount
+    return () => {
+      socket.disconnect()
+    }
   }, [])
 
   return (
@@ -33,16 +53,14 @@ export default function Events() {
         <h1 className="text-3xl font-semibold text-center text-blue-600 mb-2">
           Upcoming Events
         </h1>
-        <p className="text-center text-black text-sm mb-10">
+        <p className="text-center text-gray-500 text-sm mb-10">
           Browse all upcoming events
         </p>
 
         {loading ? (
           <p className="text-center text-gray-400 text-sm">Loading events...</p>
         ) : events.length === 0 ? (
-          <p className="text-center text-gray-400 text-sm">
-            No events found
-          </p>
+          <p className="text-center text-gray-400 text-sm">No events found</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {events.map((event) => (
