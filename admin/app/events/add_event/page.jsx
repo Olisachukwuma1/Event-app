@@ -97,11 +97,10 @@ function AddEventForm() {
     }
   }
 const formatDate = (date) => {
-  const d = new Date(date);
+  if (!date) return "";
 
-  const day = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const year = d.getFullYear();
+  // 👇 manually split instead of using Date()
+  const [year, month, day] = date.split("-");
 
   return `${day}-${month}-${year}`;
 };
