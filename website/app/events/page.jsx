@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { io } from 'socket.io-client'
+import socket from '../../socket'
 import Navbar from '../../components/Navbar'
 import EventCard from '../../components/EventCard'
 
@@ -11,39 +11,36 @@ export default function Events() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch existing events
-    const fetchEvents = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/events/public`
-        )
-        setEvents(res.data)
-      } catch (err) {
-        console.error('Failed to fetch events', err)
-      } finally {
-        setLoading(false)
-      }
+  const fetchEvents = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/events/public`
+      )
+      setEvents(res.data)
+    } catch (err) {
+      console.error('Failed to fetch events', err)
+    } finally {
+      setLoading(false)
     }
-    fetchEvents()
+  }
 
-    // Connect to socket
-    const socket = io(process.env.NEXT_PUBLIC_API_URL)
+  fetchEvents()
 
-    socket.on('connect', () => {
-      console.log('Connected to socket:', socket.id)
-    })
+  socket.on('connect', () => {
+    console.log('Connected to socket:', socket.id)
+    fetchEvents() // 👈 ensures no missed events
+  })
 
-    // Listen for new events
-    socket.on('newEvent', (newEvent) => {
-      console.log('New event received:', newEvent.title)
-      setEvents((prev) => [newEvent, ...prev])
-    })
+  socket.on('newEvent', (newEvent) => {
+    console.log('New event received:', newEvent.title)
+    setEvents((prev) => [newEvent, ...prev])
+  })
 
-    // Cleanup on unmount
-    return () => {
-      socket.disconnect()
-    }
-  }, [])
+  return () => {
+    socket.off('newEvent')
+    socket.off('connect')
+  }
+}, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
