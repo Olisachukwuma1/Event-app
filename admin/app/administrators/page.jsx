@@ -161,7 +161,7 @@ export default function Administrators() {
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-lg transition"
               >
-                Create Admin
+                Add Admin
               </button>
             </form>
           </div>

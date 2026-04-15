@@ -32,7 +32,7 @@ function AddEventForm() {
           )
           const e = res.data
           setTitle(e.title)
-          setDate(e.date)
+         setDate(e.date.split("T")[0])
           setTime(e.time)
           setVenue(e.venue)
           if (e.photo) setPreview(e.photo)
@@ -96,7 +96,15 @@ function AddEventForm() {
       setError('Failed to save event. Please try again.')
     }
   }
+const formatDate = (date) => {
+  const d = new Date(date);
 
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};
   return (
     <ProtectedRoute>
     <div className="flex min-h-screen">
@@ -141,15 +149,22 @@ function AddEventForm() {
                 />
               </div>
               <div>
-                <label className="text-xs text-gray-500 mb-1 block">Date</label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                  className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
-                />
-              </div>
+  <label className="text-xs text-gray-500 mb-1 block">Date</label>
+  
+  <input
+    type="date"
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+    required
+    className="w-full border border-gray-300 text-gray-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+  />
+
+  {date && (
+    <p className="text-xs text-gray-400 mt-1">
+      Selected: {formatDate(date)}
+    </p>
+  )}
+</div>
               <div>
                 <label className="text-xs text-gray-500 mb-1 block">Time</label>
                 <input
