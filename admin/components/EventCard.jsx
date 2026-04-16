@@ -1,3 +1,25 @@
+const formatDate = (date) => {
+  if (!date) return "";
+
+  // 👇 handle both string and Date object
+  if (typeof date === "string") {
+    const parts = date.split("-");
+    if (parts.length === 3) {
+      const [year, month, day] = parts;
+      return `${day}-${month}-${year}`;
+    }
+  }
+
+  // 👇 fallback for Date object
+  const d = new Date(date);
+  if (isNaN(d)) return "";
+
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};
 export default function EventCard({ event }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
