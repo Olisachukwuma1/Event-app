@@ -1,3 +1,10 @@
+// 👇 ADD THIS HERE (top of file)
+const formatDate = (date) => {
+  if (!date) return "";
+
+  const [year, month, day] = date.split("-");
+  return `${day}-${month}-${year}`;
+};
 export default function EventCard({ event }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
@@ -14,7 +21,7 @@ export default function EventCard({ event }) {
         <h2 className="text-base text-gray-800 font-semibold mb-3">{event.title}</h2>
         <p className="text-sm text-gray-600 mb-1">
           <span className="font-medium text-gray-800">Date: </span>
-          {event.date}
+         {formatDate(event.date)}
         </p>
         <p className="text-sm text-gray-600 mb-1">
           <span className="font-medium text-gray-800">Time: </span>
