@@ -8,6 +8,7 @@ import EventBanner from '../components/EventBanner'
 export default function Events() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -16,33 +17,43 @@ export default function Events() {
           `${process.env.NEXT_PUBLIC_API_URL}/api/events/public`
         )
         setEvents(res.data)
+        setError(false)
       } catch (err) {
         console.error('Failed to fetch events', err)
+        setError(true)
       } finally {
         setLoading(false)
       }
     }
 
     fetchEvents()
-
-    // 🔁 Poll every 10 seconds
     const interval = setInterval(fetchEvents, 10000)
-
     return () => clearInterval(interval)
   }, [])
 
+  if (error) {
+    return (
+      <div className="h-96 flex items-center justify-center bg-gray-100">
+        <p className="text-gray-600">Unable to load events. Check your network connection.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-       <EventBanner />
-      <div className="px-8 py-10 max-w-7xl mx-auto">
+      {/* 1. TOP SECTION: Heading and Subtext */}
+      <div className="pt-10 pb-6 px-8">
         <h1 className="text-3xl font-semibold text-center text-blue-600 mb-2">
           Upcoming Events
         </h1>
+        
+      </div>
 
-        <p className="text-center text-gray-500 text-sm mb-10">
-          Browse all upcoming events
-        </p>
+      {/* 2. MIDDLE SECTION: The Banner Slider */}
+      <EventBanner />
 
+      {/* 3. BOTTOM SECTION: The Event Cards Grid */}
+      <div className="px-8 py-10 max-w-7xl mx-auto">
         {loading ? (
           <p className="text-center text-gray-400 text-sm">Loading events...</p>
         ) : events.length === 0 ? (
