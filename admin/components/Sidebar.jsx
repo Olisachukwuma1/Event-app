@@ -30,9 +30,7 @@ export default function Sidebar() {
         <Link href="/events/manage_events" className={linkClass('/events/manage_events')}>
           Manage Events
         </Link>
-        <Link href="/events/frontend" className={linkClass('/events/frontend')}>
-          Public Events
-        </Link>
+        
         <Link href="/administrators" className={linkClass('/administrators')}>
           Administrators
         </Link>
