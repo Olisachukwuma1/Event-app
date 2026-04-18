@@ -1,39 +1,51 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import Link from 'next/link'
 
-// Define your random slide data here
 const BANNER_SLIDES = [
   {
     id: 1,
-    image: 'images/emerson-vieira-gOQ_57KsJKM-unsplash.jpg',
+    desktop: 'images/emerson-vieira-gOQ_57KsJKM-unsplash.jpg',
+    mobile: 'images/emerson-vieira-gOQ_57KsJKM-unsplash.jpg',
     title: 'Experience Unforgettable Moments',
     subtitle: 'Discover the best events in Kaduna and beyond'
   },
   {
     id: 2,
-    image: 'images/party.jpg',
+    desktop: 'images/party.jpg',
+    mobile: 'images/party.jpg',
     title: 'Connect with the Community',
     subtitle: 'From tech meetups to local festivals'
   },
   {
     id: 3,
-    image: 'images/art-show.jpg',
+    desktop: 'images/art-show.jpg',
+    mobile: 'images/art-show.jpg',
     title: 'Learn. Network. Grow.',
     subtitle: 'Join workshops that sharpen your skills'
   }
 ]
 
 export default function EventBanner() {
+  const [isMobile, setIsMobile] = useState(false)
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
 
-  // Auto slide logic
+  useEffect(() => {
+    // Check screen size
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Auto slide every 4 seconds
   useEffect(() => {
     if (!emblaApi) return
     const interval = setInterval(() => {
       emblaApi.scrollNext()
-    }, 4000) // 4 seconds is a better pace for reading text
+    }, 4000)
     return () => clearInterval(interval)
   }, [emblaApi])
 
@@ -43,12 +55,12 @@ export default function EventBanner() {
         {BANNER_SLIDES.map((slide) => (
           <div key={slide.id} className="relative flex-none w-full h-[450px]">
             <img
-              src={slide.image}
+              src={isMobile ? slide.mobile : slide.desktop}
               alt={slide.title}
               className="w-full h-full object-cover"
             />
-            
-            {/* Dark Gradient Overlay for better text readability */}
+
+            {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-white text-center px-6">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
                 {slide.title}
@@ -56,15 +68,18 @@ export default function EventBanner() {
               <p className="text-lg md:text-xl font-medium opacity-90">
                 {slide.subtitle}
               </p>
-              <button className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition transform hover:scale-105">
+              <Link
+                href="/events"
+                className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition transform hover:scale-105"
+              >
                 Explore Now
-              </button>
+              </Link>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Manual Navigation Dots */}
+      {/* Navigation Dots */}
       <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
         {BANNER_SLIDES.map((_, index) => (
           <button
