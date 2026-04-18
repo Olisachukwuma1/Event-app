@@ -7,22 +7,22 @@ import Link from 'next/link'
 const BANNER_SLIDES = [
   {
     id: 1,
-    desktop: 'images/emerson-vieira-gOQ_57KsJKM-unsplash.jpg',
-    mobile: 'images/emerson-vieira-gOQ_57KsJKM-unsplash.jpg',
+    desktop: 'images/football-desktop.png',
+    mobile: 'images/football-mobile.png',
     title: 'Experience Unforgettable Moments',
     subtitle: 'Discover the best events in Kaduna and beyond'
   },
   {
     id: 2,
-    desktop: 'images/party.jpg',
-    mobile: 'images/party.jpg',
+    desktop: 'images/party-desktop.png',
+    mobile: 'images/party-mobile.png',
     title: 'Connect with the Community',
     subtitle: 'From tech meetups to local festivals'
   },
   {
     id: 3,
-    desktop: 'images/art-show.jpg',
-    mobile: 'images/art-show.jpg',
+    desktop: 'images/artshow-desktop.png',
+    mobile: 'images/artshow-mobile.png',
     title: 'Learn. Network. Grow.',
     subtitle: 'Join workshops that sharpen your skills'
   }
@@ -53,7 +53,10 @@ export default function EventBanner() {
     <div className="overflow-hidden relative shadow-lg" ref={emblaRef}>
       <div className="flex">
         {BANNER_SLIDES.map((slide) => (
-          <div key={slide.id} className="relative flex-none w-full h-[450px]">
+          <div
+            key={slide.id}
+            className="relative flex-none w-full h-[500px] md:h-[600px]"
+          >
             <img
               src={isMobile ? slide.mobile : slide.desktop}
               alt={slide.title}
