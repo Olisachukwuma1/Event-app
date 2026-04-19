@@ -119,7 +119,7 @@ function AddSliderForm() {
 
             {/* Title */}
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">
+              <label className="text-xs text-gray-600 mb-1 block">
                 Slider Title
               </label>
               <input
@@ -127,13 +127,13 @@ function AddSliderForm() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 rounded-lg text-gray-600 px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
 
             {/* Link */}
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">
+              <label className="text-xs text-gray-600 mb-1 block">
                 Redirect Link (optional)
               </label>
               <input
@@ -141,26 +141,26 @@ function AddSliderForm() {
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
                 placeholder="https://example.com"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 text-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
 
             {/* Expiry Date */}
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">
+              <label className="text-xs text-gray-600 mb-1 block">
                 Expiry Date (optional)
               </label>
               <input
                 type="date"
                 value={expiresAt}
                 onChange={(e) => setExpiresAt(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                className="w-full border border-gray-300 text-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
 
             {/* Desktop Image */}
             <div>
-              <label className="text-xs text-gray-500 mb-1 block font-medium">
+              <label className="text-xs text-gray-600 mb-1 block font-medium">
                 Desktop Image
               </label>
               <p className="text-xs text-gray-400 mb-2">
