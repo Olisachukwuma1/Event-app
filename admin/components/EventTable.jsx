@@ -30,13 +30,13 @@ export default function EventTable({ events, onDelete }) {
           ) : (
             events.map((event) => (
             <tr key={event._id} className="border-t border-gray-100">
-  <td className="px-4 py-3 text-gray-700">
+  <td className="px-4 py-3 text-gray-800">
     {event._id.toString().slice(-6).toUpperCase()}
   </td>
-  <td className="px-4 py-3">{event.title}</td>
-  <td className="px-4 py-3">{event.date}</td>
-  <td className="px-4 py-3">{event.time}</td>
-  <td className="px-4 py-3">{event.venue}</td>
+  <td className="px-4 py-3 text-gray-800 ">{event.title}</td>
+  <td className="px-4 py-3 text-gray-800 ">{event.date}</td>
+  <td className="px-4 py-3 text-gray-800 ">{event.time}</td>
+  <td className="px-4 py-3 text-gray-800 ">{event.venue}</td>
   <td className="px-4 py-3">
     {event.photo ? (
       <button
