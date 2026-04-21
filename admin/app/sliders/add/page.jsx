@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import axios from 'axios'
 import Sidebar from '../../../components/Sidebar'
 import ProtectedRoute from '../../../components/ProtectedRoute'
+import Image from 'next/image'
 
 function AddSliderForm() {
   const [title, setTitle] = useState('')
@@ -100,7 +101,7 @@ function AddSliderForm() {
       <div className="flex-1 bg-gray-100 p-6">
 
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-xl text-gray-800 font-semibold">
             {editId ? 'Edit Slider' : 'Add Slider'}
           </h1>
           <button
@@ -152,11 +153,11 @@ function AddSliderForm() {
                 Desktop Image
               </label>
               <p className="text-xs text-gray-400 mb-2">
-                Recommended: 1920px × 600px (JPG or WebP, max 500KB)
+                Recommended: 1800px × 400px (JPG or png)
               </p>
               <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden mb-2">
                 {previewDesktop ? (
-                  <img
+                  <Image
                     src={previewDesktop}
                     alt="desktop preview"
                     className="h-full w-full object-cover rounded-lg"
@@ -189,11 +190,11 @@ function AddSliderForm() {
                 Mobile Image
               </label>
               <p className="text-xs text-gray-400 mb-2">
-                Recommended: 768px × 500px (JPG or WebP, max 200KB)
+                Recommended: 750px × 450px (JPG or png)
               </p>
               <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden mb-2">
                 {previewMobile ? (
-                  <img
+                  <Image
                     src={previewMobile}
                     alt="mobile preview"
                     className="h-full w-full object-cover rounded-lg"
