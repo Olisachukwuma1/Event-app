@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import EventCard from '../components/EventCard'
 import EventBanner from '../components/EventBanner'
+import Navbar from '../components/Navbar'
 
 export default function Events() {
   const [events, setEvents] = useState([])
@@ -41,7 +42,10 @@ export default function Events() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 1. TOP SECTION: Heading and Subtext */}
+    
+{/*     navbar goes here   */}
+        <Navbar />
+  {/* 1. TOP SECTION: Heading and Subtext */}
       <div className="pt-10 pb-6 px-8">
         <h1 className="text-3xl font-semibold text-center text-blue-600 mb-2">
           Upcoming Events

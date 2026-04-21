@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { FaTrash } from 'react-icons/fa'
+import { FaTrash, FaEdit } from 'react-icons/fa'
 
 export default function EventTable({ events, onDelete }) {
   const router = useRouter()
@@ -54,7 +54,7 @@ export default function EventTable({ events, onDelete }) {
       onClick={() => router.push(`/events/add_event?id=${event._id}`)}
       className="text-blue-600 hover:underline"
     >
-      Edit
+   <FaEdit size={14} />
     </button>
     <button
       onClick={() => onDelete(event._id)}
