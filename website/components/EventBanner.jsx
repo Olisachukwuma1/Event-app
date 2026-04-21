@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import axios from 'axios'
-import Link from 'next/link'
+
 
 const DEFAULT_SLIDES = [
   {
@@ -114,21 +114,7 @@ export default function EventBanner() {
                     {slide.subtitle}
                   </p>
                 )}
-                {slide.link ? (
-                  <a
-                    href={slide.link}
-                    className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition transform hover:scale-105"
-                  >
-                    Explore Now
-                  </a>
-                ) : (
-                  <Link
-                    href="/events"
-                    className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition transform hover:scale-105"
-                  >
-                    Explore Now
-                  </Link>
-                )}
+              
               </div>
             </div>
           )

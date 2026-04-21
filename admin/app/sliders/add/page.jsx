@@ -8,7 +8,7 @@ import ProtectedRoute from '../../../components/ProtectedRoute'
 
 function AddSliderForm() {
   const [title, setTitle] = useState('')
-  const [link, setLink] = useState('')
+  
   const [expiresAt, setExpiresAt] = useState('')
   const [desktopImage, setDesktopImage] = useState(null)
   const [mobileImage, setMobileImage] = useState(null)
@@ -32,7 +32,7 @@ function AddSliderForm() {
           )
           const s = res.data
           setTitle(s.title)
-          setLink(s.link || '')
+      
           if (s.expiresAt) {
             setExpiresAt(new Date(s.expiresAt).toISOString().split('T')[0])
           }
@@ -67,7 +67,7 @@ function AddSliderForm() {
       const token = localStorage.getItem('token')
       const formData = new FormData()
       formData.append('title', title)
-      formData.append('link', link)
+     
       formData.append('expiresAt', expiresAt)
       if (desktopImage) formData.append('desktopImage', desktopImage)
       if (mobileImage) formData.append('mobileImage', mobileImage)
@@ -131,19 +131,7 @@ function AddSliderForm() {
               />
             </div>
 
-            {/* Link */}
-            <div>
-              <label className="text-xs text-gray-600 mb-1 block">
-                Redirect Link (optional)
-              </label>
-              <input
-                type="url"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-                placeholder="https://example.com"
-                className="w-full border border-gray-300 text-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
-              />
-            </div>
+          
 
             {/* Expiry Date */}
             <div>

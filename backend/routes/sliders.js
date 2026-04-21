@@ -57,7 +57,7 @@ router.post('/', auth, upload.fields([
 
     const slider = new Slider({
       title,
-      link: link || null,
+    
       expiresAt: expiresAt || null,
       desktopImage: req.files['desktopImage'] ? req.files['desktopImage'][0].path : null,
       mobileImage: req.files['mobileImage'] ? req.files['mobileImage'][0].path : null,
@@ -82,7 +82,7 @@ router.put('/:id', auth, upload.fields([
 
     const updateData = {
       title,
-      link: link || null,
+    
       expiresAt: expiresAt || null,
     }
 
