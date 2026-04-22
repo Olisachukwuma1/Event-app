@@ -106,9 +106,7 @@ export default function EventBanner() {
 
               {/* Dark Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-white text-center px-6">
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
-                  {slide.title}
-                </h2>
+              
                 {slide.subtitle && (
                   <p className="text-lg md:text-xl font-medium opacity-90 mb-6">
                     {slide.subtitle}

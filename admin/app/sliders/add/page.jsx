@@ -96,8 +96,8 @@ function AddSliderForm() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
+    <div className="flex flex-col md:flex-row  min-h-screen">
+      <Sidebar className="hidden md:block" />
       <div className="flex-1 bg-gray-100 p-6">
 
         <div className="flex items-center justify-between mb-6">
@@ -148,78 +148,84 @@ function AddSliderForm() {
             </div>
 
             {/* Desktop Image */}
-            <div>
-              <label className="text-xs text-gray-600 mb-1 block font-medium">
-                Desktop Image
-              </label>
-              <p className="text-xs text-gray-400 mb-2">
-                Recommended: 1800px × 400px (JPG or png)
-              </p>
-              <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden mb-2">
-                {previewDesktop ? (
-                  <Image
-                    src={previewDesktop}
-                    alt="desktop preview"
-                    className="h-full w-full object-cover rounded-lg"
-                  />
-                ) : (
-                  <span className="text-xs text-gray-400">
-                    Desktop image preview
-                  </span>
-                )}
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                id="desktopInput"
-                onChange={handleDesktopChange}
-                className="hidden"
-              />
-              <button
-                type="button"
-                onClick={() => document.getElementById('desktopInput').click()}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-lg transition"
-              >
-                Upload Desktop Image
-              </button>
-            </div>
+      <div>
+  <label className="text-xs text-gray-600 mb-1 block font-medium">
+    Desktop Banner
+  </label>
+
+  <div
+    onClick={() => document.getElementById('desktopInput').click()}
+    className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-hidden shadow-md border border-dashed border-gray-300 cursor-pointer"
+  >
+    {previewDesktop ? (
+      <>
+        <img
+          src={previewDesktop}
+          alt="desktop preview"
+          className="w-full h-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <p className="text-white text-lg font-semibold">
+            Click to change
+          </p>
+        </div>
+      </>
+    ) : (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 text-sm">
+        Click to upload desktop banner
+      </div>
+    )}
+  </div>
+
+  <input
+    type="file"
+    accept="image/*"
+    id="desktopInput"
+    onChange={handleDesktopChange}
+    className="hidden"
+  />
+</div>
 
             {/* Mobile Image */}
-            <div>
-              <label className="text-xs text-gray-500 mb-1 block font-medium">
-                Mobile Image
-              </label>
-              <p className="text-xs text-gray-400 mb-2">
-                Recommended: 750px × 450px (JPG or png)
-              </p>
-              <div className="border border-dashed border-gray-300 rounded-lg h-28 flex items-center justify-center overflow-hidden mb-2">
-                {previewMobile ? (
-                  <Image
-                    src={previewMobile}
-                    alt="mobile preview"
-                    className="h-full w-full object-cover rounded-lg"
-                  />
-                ) : (
-                  <span className="text-xs text-gray-400">
-                    Mobile image preview
-                  </span>
-                )}
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                id="mobileInput"
-                onChange={handleMobileChange}
-                className="hidden"
-              />
-              <button
-                type="button"
-                onClick={() => document.getElementById('mobileInput').click()}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm py-2 rounded-lg transition"
-              >
-                Upload Mobile Image
-              </button>
-            </div>
+ <div>
+  <label className="text-xs text-gray-600 mb-1 block font-medium">
+    Mobile Banner
+  </label>
+
+  <div
+    onClick={() => document.getElementById('mobileInput').click()}
+    className="relative w-[200px] h-[350px] mx-auto rounded-2xl overflow-hidden shadow-md border border-dashed border-gray-300 cursor-pointer"
+  >
+    {previewMobile ? (
+      <>
+        <img
+          src={previewMobile}
+          alt="mobile preview"
+          className="w-full h-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-black/25 flex items-end p-3">
+          <p className="text-white text-sm font-medium">
+            Tap to change
+          </p>
+        </div>
+      </>
+    ) : (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 text-xs text-center px-2">
+        Tap to upload mobile banner
+      </div>
+    )}
+  </div>
+
+  <input
+    type="file"
+    accept="image/*"
+    id="mobileInput"
+    onChange={handleMobileChange}
+    className="hidden"
+  />
+</div>
 
             {/* Submit */}
             <button

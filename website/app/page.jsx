@@ -45,13 +45,6 @@ export default function Events() {
     
 {/*     navbar goes here   */}
         <Navbar />
-  {/* 1. TOP SECTION: Heading and Subtext */}
-      <div className="pt-10 pb-6 px-8">
-        <h1 className="text-3xl font-semibold text-center text-blue-600 mb-2">
-          Upcoming Events
-        </h1>
-        
-      </div>
 
       {/* 2. MIDDLE SECTION: The Banner Slider */}
       <EventBanner />
