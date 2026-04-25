@@ -98,7 +98,7 @@ export default function EventBanner() {
                 <img
                   src={imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-black"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500" />
