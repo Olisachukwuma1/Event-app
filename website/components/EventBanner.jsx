@@ -92,13 +92,13 @@ export default function EventBanner() {
           return (
             <div
               key={slide._id}
-              className="relative flex-none w-full h-[500px] md:h-[600px]"
+              className="relative flex-none w-full"
             >
               {imageUrl ? (
                 <img
                   src={imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-contain bg-black"
+                  className="w-full h-auto"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500" />

@@ -155,14 +155,14 @@ function AddSliderForm() {
 
   <div
     onClick={() => document.getElementById('desktopInput').click()}
-    className="relative w-full h-48 md:h-56 lg:h-64 rounded-xl overflow-hidden shadow-md border border-dashed border-gray-300 cursor-pointer"
+    className="relative w-full rounded-xl overflow-hidden"
   >
     {previewDesktop ? (
       <>
         <img
           src={previewDesktop}
           alt="desktop preview"
-          className="w-full h-full object-cover"
+          className="w-full h-auto "
         />
 
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -195,14 +195,14 @@ function AddSliderForm() {
 
   <div
     onClick={() => document.getElementById('mobileInput').click()}
-    className="relative w-[200px] h-[350px] mx-auto rounded-2xl overflow-hidden shadow-md border border-dashed border-gray-300 cursor-pointer"
+    className="relative w-full rounded-xl overflow-hidden"
   >
     {previewMobile ? (
       <>
         <img
           src={previewMobile}
           alt="mobile preview"
-          className="w-full h-full object-cover"
+          className="w-full h-auto "
         />
 
         <div className="absolute inset-0 bg-black/25 flex items-end p-3">
