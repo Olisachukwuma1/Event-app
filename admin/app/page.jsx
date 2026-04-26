@@ -3,7 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-import { Toast } from 'react-toastify'
+import { toast } from 'react-toastify'
+
+
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
