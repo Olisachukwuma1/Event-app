@@ -6,6 +6,7 @@ import axios from 'axios'
 import Sidebar from '../../../components/Sidebar'
 import { Suspense } from 'react'
 import ProtectedRoute from '../../../components/ProtectedRoute'
+import { toast } from 'react-toastify'
 
 function AddEventForm() {
   const [title, setTitle] = useState('')
@@ -37,7 +38,7 @@ function AddEventForm() {
           setVenue(e.venue)
           if (e.photo) setPreview(e.photo)
         } catch (_err) {
-          setError('Failed to load event')
+          toast.error('Failed to load event')
         }
       }
       fetchEvent()
@@ -75,7 +76,7 @@ function AddEventForm() {
     }
   }
 )
-  setMessage('Event updated successfully')
+  toast.success('Event updated successfully')
       } 
       else {
       await axios.post(
@@ -88,12 +89,12 @@ function AddEventForm() {
     }
   }
 )
-        setMessage('Event has been added successfully')
+        toast.success('Event has been added successfully')
       }
 
       setTimeout(() => router.push('/events/manage_events'), 1500)
     } catch (_err) {
-      setError('Failed to save event. Please try again.')
+      toast.error('Failed to save event. Please try again.')
     }
   }
 const formatDate = (date) => {

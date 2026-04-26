@@ -5,6 +5,7 @@ import axios from 'axios'
 import Sidebar from '../../components/Sidebar'
 import { FaTrash } from 'react-icons/fa'
 import ProtectedRoute from '../../components/ProtectedRoute'
+import { toast } from 'react-toastify'
 
 export default function Administrators() {
   const [admins, setAdmins] = useState([])
@@ -23,7 +24,7 @@ export default function Administrators() {
       )
       setAdmins(res.data)
     } catch (_err) {
-      setError('Failed to load admins')
+      toast.error('Failed to load admins')
     }
   }
 
@@ -48,7 +49,7 @@ export default function Administrators() {
       setPassword('')
       fetchAdmins()
     } catch (_err) {
-      setError(_err.response?.data?.message || 'Failed to create admin')
+      toast.error(_err.response?.data?.message || 'Failed to create admin')
     }
   }
 
@@ -60,10 +61,10 @@ export default function Administrators() {
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/admins/` + id,
         { headers: { Authorization: 'Bearer ' + token } }
       )
-      setMessage('Admin deleted successfully')
+      toast.success('Admin deleted successfully')
       fetchAdmins()
     } catch (_err) {
-      setError('Failed to delete admin')
+      toast.error('Failed to delete admin')
     }
   }
 

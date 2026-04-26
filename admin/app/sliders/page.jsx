@@ -6,6 +6,7 @@ import axios from 'axios'
 import Sidebar from '../../components/Sidebar'
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import ProtectedRoute from '../../components/ProtectedRoute'
+import { toast } from 'react-toastify'
 
 export default function Sliders() {
   const [sliders, setSliders] = useState([])
@@ -22,7 +23,8 @@ export default function Sliders() {
       )
       setSliders(res.data)
     } catch (_err) {
-      setError('Failed to load sliders')
+    
+      toast.error('Failed to load sliders')
     }
   }
 
@@ -38,10 +40,10 @@ export default function Sliders() {
         `${process.env.NEXT_PUBLIC_API_URL}/api/sliders/` + id,
         { headers: { Authorization: 'Bearer ' + token } }
       )
-      setMessage('Slider deleted successfully')
+      toast.success('Slider deleted successfully')
       fetchSliders()
     } catch (_err) {
-      setError('Failed to delete slider')
+      toast.error('Failed to delete slider')
     }
   }
 

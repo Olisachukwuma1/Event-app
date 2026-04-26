@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export default function AuthCode() {
   const [code, setCode] = useState('')
@@ -23,7 +24,7 @@ export default function AuthCode() {
       localStorage.setItem('token', res.data.token)
       router.push('/dashboard')
     } catch (_err) {
-      setError('Invalid or expired code')
+      toast.error('Invalid or expired code')
     }
   }
 
@@ -37,9 +38,9 @@ export default function AuthCode() {
         {},
         { headers: { Authorization: 'Bearer ' + token } }
       )
-      setMessage('Code resent! Check your email.')
+      toast.success('Code resent! Check your email.')
     } catch (_err) {
-      setError('Could not resend code. Try again.')
+      toast.error('Could not resend code. Try again.')
     }
   }
 

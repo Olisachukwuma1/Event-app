@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-
+import { Toast } from 'react-toastify'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,7 +21,7 @@ export default function Login() {
       localStorage.setItem('token', res.data.token)
       router.push('/authentication_code')
     } catch (_err) {
-      setError('Invalid email or password')
+      toast.error('Invalid email or password')
     }
   }
 

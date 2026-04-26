@@ -7,6 +7,7 @@ import Sidebar from '../../../components/Sidebar'
 import EventTable from '../../../components/EventTable'
 import { jwtDecode } from 'jwt-decode'
 import ProtectedRoute from '../../../components/ProtectedRoute'
+import { toast } from 'react-toastify'
 
 export default function ManageEvents() {
   const [events, setEvents] = useState([])
@@ -29,7 +30,7 @@ export default function ManageEvents() {
         )
         setEvents(res.data)
       } catch (_err) {
-        setMessage('Failed to load events')
+        toast.error('Failed to load events')
       }
     }
     fetchEvents()
@@ -43,14 +44,14 @@ export default function ManageEvents() {
         `${process.env.NEXT_PUBLIC_API_URL}/api/events/` + id,
         { headers: { Authorization: 'Bearer ' + token } }
       )
-      setMessage('Event deleted successfully')
+      toast.success('Event deleted successfully')
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/events`,
         { headers: { Authorization: 'Bearer ' + token } }
       )
       setEvents(res.data)
     } catch (_err) {
-      setMessage('Failed to delete event')
+      toast.error('Failed to delete event')
     }
   }
 

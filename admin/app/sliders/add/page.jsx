@@ -6,6 +6,7 @@ import axios from 'axios'
 import Sidebar from '../../../components/Sidebar'
 import ProtectedRoute from '../../../components/ProtectedRoute'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 function AddSliderForm() {
   const [title, setTitle] = useState('')
@@ -40,7 +41,7 @@ function AddSliderForm() {
           if (s.desktopImage) setPreviewDesktop(s.desktopImage)
           if (s.mobileImage) setPreviewMobile(s.mobileImage)
         } catch (_err) {
-          setError('Failed to load slider')
+          toast.error('Failed to load slider data')
         }
       }
       fetchSlider()
@@ -79,7 +80,7 @@ function AddSliderForm() {
           formData,
           { headers: { Authorization: 'Bearer ' + token } }
         )
-        setMessage('Slider updated successfully')
+        toast.success('Slider updated successfully')
       } else {
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/api/sliders`,
@@ -91,7 +92,7 @@ function AddSliderForm() {
 
       setTimeout(() => router.push('/sliders'), 1500)
     } catch (_err) {
-      setError('Failed to save slider. Please try again.')
+      toast.error('Failed to save slider. Please try again.')
     }
   }
 
